@@ -1,15 +1,18 @@
-const http = require("http");
 const express = require("express");
+const bodyParser = require("body-parser");
+
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(adminRoutes);
+app.use(shopRoutes);
+
 app.use("/", (req, res, next) => {
-  console.log("This runs every tiem with a refresh");
-  next();
+  res.send("<h1>Hello from Express!</h1>");
 });
 
-app.use("/add-product", (req, res, next) => {
-  app.response('This is "add-product" page');
-});
-
-app.listen(3030);
+app.listen(3000);
